@@ -1,0 +1,22 @@
+services:
+  php:
+    image: yiisoftware/yii2-php:8.3-fpm-nginx
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    ports:
+      - '8000:80'
+    networks:
+      - backend
+
+  pgsql:
+    image: postgres:16.3
+    environment:
+      - POSTGRES_DB=company
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=secret
+    networks:
+      - backend
+
+networks:
+  backend: 
